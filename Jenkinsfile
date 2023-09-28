@@ -5,7 +5,7 @@ pipeline {
         stage("Checkout") {
             
             steps {
-                git branch: dev , url: https://github.com/lokeshvallepu/RxJava.git
+                git branch: dev , url: 'https://github.com/lokeshvallepu/RxJava.git'
             }
             
         }
