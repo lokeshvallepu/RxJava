@@ -2,27 +2,44 @@ pipeline {
     agent any
     stages {
         
-        stage("build") {
+        stage("Checkout") {
             
             steps {
-                echo 'building the application'
+                git branch: dev , url: https://github.com/lokeshvallepu/RxJava.git
             }
             
         }
-        stage("test") {
+        stage("Build") {
             
             steps {
-                echo 'testing the application'
+                sh "mvn clean compile"
             }
         }
         
-        stage("Deploy") {
+        stage("Test") {
             
             steps {
                 
-                echo 'deploying the application'
+                sh "mvn test"
             }
             
         }
+
+        stage("package") {
+            steps {
+                
+                sh "mvn package"
+                
+            }            
+        }
+
+        stage ("Dockerize app") {
+
+            steps {
+                sh "docker buil -t lokeshvallepu/rxjapp:1.0.1"
+                
+            }
+        }
+        
     }
 }
